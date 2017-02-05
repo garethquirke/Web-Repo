@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--category div is generated from this page-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="col-md-2 col-sm-2">
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>
+                Category
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--Display all feature is the first in the table-->
+        <td><a href="#" ng-click="categoryFilter.category=''">Display All</a></td>
+        <!--array is being dynamically called from the one created in products.js
+            which allows us to generate a list of categories dynamically.
+			tr allows us to add the rest of the rows based on elements in the array.-->
+        <tr ng-repeat="p1 in categoryList | orderBy:orderByField:reverseSort">
+            <td><a href="#" ng-click="categoryFilter.category=p1.categoryName">{{p1.categoryName}}</a></td>
+        </tr>
+        </tbody>
+    </table>
+	<!-- Placing the add category at the foot of the table.
+	     button below will call addProductCategory when clicked.
+	-->
+  <table class="table table-bordered table-hover table-condensed">
+    <tr>
+      <input type="text" id="name" ng-model="newCategory.categoryName" class="form-control input-sm" placeholder="Add Category">
+      <button class="btn btn-primary" display-inline="block" ng-click="addProductCategory()">Add</button>
+    </tr>
+    </table>
+	<!--Delete this div possibley ??? change-->
+    <div class="col-md-15 col-sm-7">
+        <p></p>
+    </div>
+  <p></p>
+</div>
+</body>
+</html>

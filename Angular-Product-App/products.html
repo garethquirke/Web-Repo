@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body ng-app="products">
+<!--Creating a div to conatin both the catgeory list and the products list in the one div
+    will help us to alter its position if needed-->
+  <div id="container" ng-controller="productCtrl">
+        <div class="row">
+            <!-- using ng-init to set the content in this section to category.html which is stored in partials folder -->
+            <div ng-init="categoryFilter.category=''"  ng-include="'partials/category.html'"></div>
+            <div class="col-md-8 col-sm-12">
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+            <th col colspan="5">
+              <form class="form-inline" role="form">
+			  <!--Search bar will go ontop of the table also removed the search glyphicon-->
+                <div class="col-md-4 col-sm-12">
+                  <input ng-model="filterProducts" type="text" class="form-control input-sm" id="filter" placeholder="Enter keyword">
+                </div>
+              </form>
+              </th>
+            <tr>
+                <th>
+                    <a href="#" ng-click="orderByField='id'; reverseSort = !reverseSort">ID
+                        <span ng-show="orderByField == 'id'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">name
+                        <span ng-show="orderByField == 'name'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                    </a>
+                </th>
+                <th><a href="#" ng-click="orderByField='description'; reverseSort = !reverseSort">description
+                        <span ng-show="orderByField == 'description'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                </a>
+                </th>
+                <th><a href="#" ng-click="orderByField='category'; reverseSort = !reverseSort">category
+                        <span ng-show="orderByField == 'category'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="orderByField='stock'; reverseSort = !reverseSort">stock
+                        <span ng-show="orderByField == 'stock'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="orderByField='price'; reverseSort = !reverseSort">price
+                        <span ng-show="orderByField == 'price'">
+                            <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                        </span>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in productsList | filter:filterProducts | filter:categoryFilter | orderBy:orderByField:reverseSort"
+                    ng-include="p.id == existingProduct.id ? 'partials/editProduct.html' : 'partials/viewProduct.html'">
+                </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+            <p><hr></p>
+            <button class="btn btn-primary" ng-show="!showForm" ng-click="showForm = !showForm">Add Product</button>
+            <button class="btn btn-primary" ng-show="showForm" ng-click="showForm = !showForm">Hide Form</button>
+            <div ng-include="showForm ? 'partials/addProduct.html' : null"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

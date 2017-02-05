@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p><h> </h><p>
+<h4>Add a Product</h4>
+<form name="frmAddProduct" class="form-horizontal" role="form" ng-submit="addProduct()">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Name</label>
+        <div class="col-sm-5">
+            <input type="text" id="name" ng-model="newProduct.name" class="form-control input-sm">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="description">Description</label>
+        <div class="col-sm-5">
+            <input type="text" id="description" ng-model="newProduct.description" class="form-control input-sm">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="category">Category</label>
+        <div class="col-sm-5">
+            <!--array is being dynamically called from the one created in products.js
+                which allows us to generate a list of categories dynamically.-->
+            <select id="category" ng-model="newProduct.category" class="form-control input-sm">
+                <option class="form-control input-sm" ng-repeat="p1 in categoryList | filter:filtercategoryList | orderBy:orderByField:reverseSort" value="{{p1.categoryName}}">{{p1.categoryName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="stock">Stock</label>
+        <div class="col-sm-5">
+            <input type="number" id="stock" ng-model="newProduct.stock" class="form-control input-sm">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="price">Unit Price</label>
+        <div class="col-sm-5">
+            <input type="number" min="0" step="0.01" id="price" ng-model="newProduct.price" class="form-control input-sm">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="reset" ng-click="reset()" class="btn btn-primary">Cancel</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
